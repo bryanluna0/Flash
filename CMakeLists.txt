@@ -23,6 +23,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Flash
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        Deck.h
+        Card.h
+        Card.cpp
+        Deck.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Flash APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
