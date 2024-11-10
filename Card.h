@@ -8,8 +8,6 @@
 #ifndef CARD_H
 #define CARD_H
 
-#endif // CARD_H
-
 #include <string>
 
 // Card class
@@ -50,3 +48,5 @@ public:
     bool operator==(const Card& other) const;
 
 };
+
+#endif // CARD_H

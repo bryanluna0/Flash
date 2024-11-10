@@ -9,8 +9,6 @@
 #ifndef DECK_H
 #define DECK_H
 
-#endif // DECK_H
-
 #include <vector>
 #include "../Flash/Card.h"
 #include <iostream>
@@ -52,3 +50,5 @@ public:
     void fillFromFile(const std::string& inputFile);
 
 };
+
+#endif // DECK_H
