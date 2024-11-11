@@ -1,7 +1,7 @@
-#include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <QPushButton>
 #include "Deck.h"
+#include "mainwindow.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,13 +13,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto layout = new QVBoxLayout(centralWidget);
 
-    auto createButton = new QPushButton("Create Deck");
-    layout->addWidget(createButton);
+    createButton = new QPushButton("Create Deck");
+    studyButton = new QPushButton("Study Deck");
 
-    auto studyButton = new QPushButton("Study Deck");
+    layout->addWidget(createButton);
     layout->addWidget(studyButton);
 
     setCentralWidget(centralWidget);
+
+    connect(createButton, &QPushButton::pressed, this,
+            [&](){createWindow = new QWidget; createWindow->show(); });
+    connect(studyButton, &QPushButton::pressed, this,
+            [&](){studyWindow = new QWidget; studyWindow->show(); });
+
 }
 
 MainWindow::~MainWindow()
