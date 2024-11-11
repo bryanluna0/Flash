@@ -1,14 +1,14 @@
 #ifndef STUDYWINDOW_H
 #define STUDYWINDOW_H
-#include <QWindow>
+#include <QWidget>
 
-class StudyWindow : public QWindow
+class StudyWindow : public QWidget
 {
 public:
     StudyWindow();
 
 private:
-    QWindow* studyWindow;
+    QWidget* studyWindow;
 };
 
 #endif // STUDYWINDOW_H

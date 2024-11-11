@@ -2,7 +2,7 @@
 
 StudyWindow::StudyWindow()
 {
-    studyWindow = new QWindow;
+    studyWindow = new QWidget;
 
     studyWindow->show();
 }

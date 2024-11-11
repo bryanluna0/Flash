@@ -1,9 +1,9 @@
 #ifndef CREATEWINDOW_H
 #define CREATEWINDOW_H
 
-#include <QWindow>
+#include <QWidget>
 
-class CreateWindow : public QWindow
+class CreateWindow : public QWidget
 {
     Q_OBJECT
 
@@ -11,7 +11,7 @@ public:
     CreateWindow();
 
 private:
-    QWindow* createWindow;
+    QWidget* createWindow;
 };
 
 #endif // CREATEWINDOW_H
