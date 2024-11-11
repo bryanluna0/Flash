@@ -1,6 +1,8 @@
 #include "./ui_mainwindow.h"
 #include "Deck.h"
 #include "mainwindow.h"
+#include "createwindow.h"
+#include "studywindow.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -21,10 +23,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(centralWidget);
 
+    // TODO: FIX MULTIPLE WINDOWS OPENING WHEN CLICKING MORE THAN ONCE
     connect(createButton, &QPushButton::pressed, this,
-            [&](){createWindow = new QWidget; createWindow->show(); });
+            [](){ CreateWindow c; } );
+
     connect(studyButton, &QPushButton::pressed, this,
-            [&](){studyWindow = new QWidget; studyWindow->show(); });
+            [](){ StudyWindow s; } );
 
 }
 

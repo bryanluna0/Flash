@@ -27,6 +27,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Card.h
         Card.cpp
         Deck.cpp
+        createwindow.h createwindow.cpp
+        studywindow.h studywindow.cpp
+
 
     )
 # Define target properties for Android with Qt 6 as:
