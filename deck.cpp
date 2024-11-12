@@ -6,7 +6,7 @@
  *
 */
 
-#include "Deck.h"
+#include "deck.h"
 #include <fstream>
 
 // Default constuctor

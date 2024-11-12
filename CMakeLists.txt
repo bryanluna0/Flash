@@ -23,12 +23,16 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Flash
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        Deck.h
-        Card.h
+        deck.h
+
         Card.cpp
-        Deck.cpp
+
         createwindow.h createwindow.cpp
         studywindow.h studywindow.cpp
+        deck.h deck.cpp
+        card.h
+        card.cpp
+
 
 
     )

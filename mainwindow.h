@@ -1,8 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "deck.h"
 #include <QMainWindow>
 #include <QPushButton>
+#include <vector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,8 +20,12 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    std::vector<Deck> decks;
+
     QPushButton* createButton;
     QPushButton* studyButton;
+
     QWidget* createWindow;
     QWidget* studyWindow;
 };

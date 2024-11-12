@@ -5,7 +5,7 @@
  *
  */
 
-#include "../Flashcards/Card.h"
+#include "card.h"
 
 // Default constructor
 Card::Card()

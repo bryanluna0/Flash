@@ -10,7 +10,7 @@
 #define DECK_H
 
 #include <vector>
-#include "../Flash/Card.h"
+#include "card.h"
 #include <iostream>
 
 // Deck class
