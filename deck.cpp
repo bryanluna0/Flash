@@ -11,7 +11,14 @@
 
 // Default constuctor
 Deck::Deck()
-    : currentCard(0)
+    : currentCard(0), deckName("")
+{
+
+}
+
+// Constructor with name
+Deck::Deck(std::string name)
+    : currentCard(0), deckName(name)
 {
 
 }
@@ -20,6 +27,18 @@ Deck::Deck()
 const Card Deck::getCurrent() const
 {
     return deck[currentCard];
+}
+
+// Returns the name of the deck
+std::string Deck::getDeckName() const
+{
+    return deckName;
+}
+
+// Sets the name of the deck
+void Deck::setDeckName(const std::string& newName)
+{
+    deckName = newName;
 }
 
 // Returns the next card relative to the current

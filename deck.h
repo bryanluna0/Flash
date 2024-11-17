@@ -22,13 +22,21 @@ private:
 
     // Variable holding the index of the current card. Begins at 0 (First card)
     int currentCard;
+    std::string deckName;
 
 public:
     // Default constructor
     Deck();
 
-    // Returns a given card
-    const Card getCurrent() const;
+    // Constructor with name
+    Deck(std::string name);
+
+    // Getters
+    const Card getCurrent() const; // Returns a given card
+    std::string getDeckName() const; // Returns the name of the deck
+
+    // Setters
+    void setDeckName(const std::string& newName); // Sets the name of the deck
 
     // Set currentCard to a given card
     void goNext();     // Sets next card relative to the current
@@ -48,6 +56,8 @@ public:
 
     // Fills a deck from a given file
     void fillFromFile(const std::string& inputFile);
+
+
 
 };
 

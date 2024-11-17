@@ -2,8 +2,8 @@
 #define CREATEWINDOW_H
 
 #include "deck.h"
-#include <QComboBox>
 #include <QPushButton>
+#include <QComboBox>
 #include <QWidget>
 #include <vector>
 
