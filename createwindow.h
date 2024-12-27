@@ -17,7 +17,7 @@ public:
 private:
     QWidget* createWindow;
     QPushButton* newDeckButton;
-    QComboBox* deckSelector;
+    int selectIndex;
 };
 
 #endif // CREATEWINDOW_H
