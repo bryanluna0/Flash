@@ -48,6 +48,9 @@ public:
     void printCurrentFront() const;
     void printCurrentBack() const;
 
+    // Size of the deck
+    int size() const;
+
     // Adds a given card to a deck
     void add(const Card& c);
 

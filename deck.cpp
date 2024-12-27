@@ -90,6 +90,11 @@ void Deck::add(const Card& c)
     deck.push_back(c);
 }
 
+int Deck::size() const
+{
+    return deck.size();
+}
+
 // // Removes all elements equal to a given card from the deck
 // void Deck::remove(const Card& c)
 // {
