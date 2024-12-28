@@ -25,7 +25,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         deck.h
 
-        Card.cpp
+        card.cpp
 
         createwindow.h createwindow.cpp
         studywindow.h studywindow.cpp

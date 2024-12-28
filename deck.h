@@ -32,12 +32,14 @@ public:
     Deck(std::string name);
 
     // Getters
-    const Card getCurrent() const; // Returns a given card
+    Card& getCurrent(); // Returns a given card
     int getCurrentIndex() const;    // Returns the current card index
     std::string getDeckName() const; // Returns the name of the deck
 
     // Setters
     void setDeckName(const std::string& newName); // Sets the name of the deck
+    void setCurrentCardFront(const std::string& newFront); // Sets the front of the current card
+    void setCurrentCardBack(const std::string& newBack); // Sets the back of the current card
 
     // Set currentCard to a given card
     void goNext();     // Sets next card relative to the current

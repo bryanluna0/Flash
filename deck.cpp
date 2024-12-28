@@ -24,7 +24,7 @@ Deck::Deck(std::string name)
 }
 
 // Returns the first card of the list in the deck
-const Card Deck::getCurrent() const
+Card& Deck::getCurrent()
 {
     return deck[currentCard];
 }
@@ -45,6 +45,18 @@ std::string Deck::getDeckName() const
 void Deck::setDeckName(const std::string& newName)
 {
     deckName = newName;
+}
+
+// Sets the front of the current card
+void Deck::setCurrentCardFront(const std::string& newFront)
+{
+    getCurrent().setFront(newFront);
+}
+
+// Sets the back of the current card
+void Deck::setCurrentCardBack(const std::string& newBack)
+{
+    getCurrent().setBack(newBack);
 }
 
 // Returns the next card relative to the current
