@@ -20,7 +20,7 @@ private:
     // The deck is a list of card objects.
     std::vector<Card> deck;
 
-    // Variable holding the index of the current card. Begins at 0 (First card)
+    // Variable holding the index of the current card. Begins at -1 (No Cards)
     int currentCard;
     std::string deckName;
 
@@ -33,6 +33,7 @@ public:
 
     // Getters
     const Card getCurrent() const; // Returns a given card
+    int getCurrentIndex() const;    // Returns the current card index
     std::string getDeckName() const; // Returns the name of the deck
 
     // Setters
