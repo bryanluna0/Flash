@@ -21,16 +21,15 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
     outerLayout->addWidget(deckSelector);
 
     QString cardTemp = "Card ";
+
+    auto innerLayoutCard = new QHBoxLayout;
+    outerLayout->addLayout(innerLayoutCard);
+
     auto status = new QLabel("No deck selected");
+    innerLayoutCard->addWidget(status);
 
-    outerLayout->addWidget(status);
-
-    // TODO: MAKE MAP? TO STORE NAMES AND GET VALUES FOR THEM???
-    for (auto& e: decks)
-    {
-        qDebug() << e.getDeckName();
-        deckSelector->addItem(QString::fromStdString(e.getDeckName()));
-    }
+    auto newCard = new QPushButton("Add card");
+    innerLayoutCard->addWidget(newCard);
 
     // auto successLabel = new QLabel;
     // innerLayout->addWidget(successLabel);
@@ -40,9 +39,6 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
 
     outerLayout->addLayout(innerLayoutFront);
     outerLayout->addLayout(innerLayoutBack);
-
-    QString fTemp = "Front: ";
-    QString bTemp = "Back: ";
 
     auto f = new QLabel("Front: ");
     auto b = new QLabel("Back: ");
@@ -57,15 +53,34 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
     auto backText = new QLineEdit;
     innerLayoutBack->addWidget(backText);
 
-    auto write = new QPushButton("Write");
-    outerLayout->addWidget(write);
+    auto cardEditLayout = new QHBoxLayout;
+    outerLayout->addLayout(cardEditLayout);
 
-    // TODO: STORE THE NAMES ADDED INTO COMBOBOX AS DECK NAMES
+    auto left = new QPushButton("<");
+    cardEditLayout->addWidget(left);
+    auto write = new QPushButton("Write");
+    cardEditLayout->addWidget(write);
+    auto right = new QPushButton(">");
+    cardEditLayout->addWidget(right);
+
+    for (int i = 0; i < decks.size(); i++)
+    {
+        if (i == 0)
+        {
+            decks[i].goFirst();
+            Card firstCard = decks[i].getCurrent();
+            status->setText(cardTemp + "1");
+            frontText->setText(QString::fromStdString(firstCard.getFront()));
+            backText->setText(QString::fromStdString(firstCard.getBack()));
+        }
+
+        qDebug() << decks[i].getDeckName();
+        deckSelector->addItem(QString::fromStdString(decks[i].getDeckName()));
+    }
+
     // TODO: Add success message after creation of a new deck
-    // TODO: Currently, changing decks makes a new deck, fix that
-    // connect(deckSelector, &QComboBox::currentIndexChanged, this,
-    //         [=]() {/*selectIndex = deckSelector->currentIndex();*/ qDebug() << deckSelector->currentIndex(); });
-    connect(deckSelector, &QComboBox::currentIndexChanged, outerLayout, [&decks, deckSelector, status, cardTemp]()
+
+    connect(deckSelector, &QComboBox::currentIndexChanged, outerLayout, [&decks, deckSelector, status, cardTemp, frontText, backText]()
     {
         status->setText(cardTemp + "1");
         std::string s = deckSelector->currentText().toStdString();
@@ -80,21 +95,78 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
         {
             Deck newDeck(s);
             decks.push_back(newDeck);
+            frontText->clear();
+            backText->clear();
             qDebug() << decks[deckSelector->currentIndex()].getDeckName();
+        }
+
+        if(decks[deckSelector->currentIndex()].size() > 0)
+        {
+            decks[deckSelector->currentIndex()].goFirst();
+            Card firstCard = decks[deckSelector->currentIndex()].getCurrent();
+            frontText->setText(QString::fromStdString(firstCard.getFront()));
+            backText->setText(QString::fromStdString(firstCard.getBack()));
+
+        }
+        else
+        {
+            frontText->clear();
+            backText->clear();
         }
     });
 
-
-    connect(write, &QPushButton::pressed, outerLayout, [&decks, frontText, backText, deckSelector, f, fTemp, b, bTemp, status, cardTemp]()
+    connect(newCard, &QPushButton::pressed, innerLayoutCard, [&decks, frontText, backText, deckSelector, status, cardTemp]()
     {
-        int cardIndex = deckSelector->currentIndex();
-        decks[cardIndex].add(Card(frontText->text().toStdString(),
-        backText->text().toStdString()));
-        f->setText(fTemp + frontText->text());
-        b->setText(bTemp + backText->text());
-        status->setText(cardTemp + QString::fromStdString(std::to_string(decks[cardIndex].size() + 1)) );
+        int deckIndex = deckSelector->currentIndex();
+        frontText->clear();
+        backText->clear();
+        decks[deckIndex].add(Card("", ""));
+        QString cardNumber = cardTemp + QString::fromStdString(std::to_string(decks[deckIndex].size()));
+        status->setText(cardNumber);
+        qDebug() << decks[deckIndex].getCurrentIndex();
+        qDebug() << decks[deckIndex].size();
     });
 
+    connect(write, &QPushButton::pressed, outerLayout, [&decks, frontText, backText, deckSelector, status, cardTemp]()
+    {
+        int deckIndex = deckSelector->currentIndex();
+        if (decks[deckIndex].size() == 0)
+        {
+            decks[deckIndex].add(Card(frontText->text().toStdString(), backText->text().toStdString()));
+        }
+        else
+        {
+            qDebug() << frontText->text().toStdString();
+            decks[deckIndex].setCurrentCardFront(frontText->text().toStdString());
+            decks[deckIndex].setCurrentCardBack(backText->text().toStdString());
+            qDebug() << decks[deckIndex].getCurrent().getFront();
+        }
+        frontText->clearFocus();
+        backText->clearFocus();
+
+    });
+
+
+    // TODO: FIX ISSUE NOT SHOWING CORRECT FRONT AND BACK VALUES
+    connect(left, &QPushButton::pressed, cardEditLayout, [&decks, deckSelector, frontText, backText, status, cardTemp]()
+    {
+        decks[deckSelector->currentIndex()].goPrev();
+        frontText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
+        backText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getBack()));
+        status->setText(cardTemp + QString::fromStdString(std::to_string(decks[deckSelector->currentIndex()].getCurrentIndex() + 1)));
+        qDebug() << decks[deckSelector->currentIndex()].getCurrentIndex();
+
+    });
+
+    connect(right, &QPushButton::pressed, cardEditLayout, [&decks, deckSelector, frontText, backText, status, cardTemp]()
+    {
+        decks[deckSelector->currentIndex()].goNext();
+        frontText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
+        backText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getBack()));
+        status->setText(cardTemp + QString::fromStdString(std::to_string(decks[deckSelector->currentIndex()].getCurrentIndex() + 1)));
+        qDebug() << decks[deckSelector->currentIndex()].getCurrentIndex();
+
+    });
 
     createWindow->show();
 }
