@@ -65,7 +65,7 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
 
     for (int i = 0; i < decks.size(); i++)
     {
-        if (i == 0)
+        if (i == 0 && decks[i].size() != 0)
         {
             decks[i].goFirst();
             Card firstCard = decks[i].getCurrent();
@@ -73,8 +73,6 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
             frontText->setText(QString::fromStdString(firstCard.getFront()));
             backText->setText(QString::fromStdString(firstCard.getBack()));
         }
-
-        qDebug() << decks[i].getDeckName();
         deckSelector->addItem(QString::fromStdString(decks[i].getDeckName()));
     }
 
@@ -97,7 +95,6 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
             decks.push_back(newDeck);
             frontText->clear();
             backText->clear();
-            qDebug() << decks[deckSelector->currentIndex()].getDeckName();
         }
 
         if(decks[deckSelector->currentIndex()].size() > 0)
@@ -117,14 +114,15 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
 
     connect(newCard, &QPushButton::pressed, innerLayoutCard, [&decks, frontText, backText, deckSelector, status, cardTemp]()
     {
-        int deckIndex = deckSelector->currentIndex();
-        frontText->clear();
-        backText->clear();
-        decks[deckIndex].add(Card("", ""));
-        QString cardNumber = cardTemp + QString::fromStdString(std::to_string(decks[deckIndex].size()));
-        status->setText(cardNumber);
-        qDebug() << decks[deckIndex].getCurrentIndex();
-        qDebug() << decks[deckIndex].size();
+        if(decks.size() > 0)
+        {
+            int deckIndex = deckSelector->currentIndex();
+            frontText->clear();
+            backText->clear();
+            decks[deckIndex].add(Card("", ""));
+            QString cardNumber = cardTemp + QString::fromStdString(std::to_string(decks[deckIndex].size()));
+            status->setText(cardNumber);
+        }
     });
 
     connect(write, &QPushButton::pressed, outerLayout, [&decks, frontText, backText, deckSelector, status, cardTemp]()
@@ -136,26 +134,20 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
         }
         else
         {
-            qDebug() << frontText->text().toStdString();
             decks[deckIndex].setCurrentCardFront(frontText->text().toStdString());
             decks[deckIndex].setCurrentCardBack(backText->text().toStdString());
-            qDebug() << decks[deckIndex].getCurrent().getFront();
         }
         frontText->clearFocus();
         backText->clearFocus();
 
     });
 
-
-    // TODO: FIX ISSUE NOT SHOWING CORRECT FRONT AND BACK VALUES
     connect(left, &QPushButton::pressed, cardEditLayout, [&decks, deckSelector, frontText, backText, status, cardTemp]()
     {
         decks[deckSelector->currentIndex()].goPrev();
         frontText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
         backText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getBack()));
         status->setText(cardTemp + QString::fromStdString(std::to_string(decks[deckSelector->currentIndex()].getCurrentIndex() + 1)));
-        qDebug() << decks[deckSelector->currentIndex()].getCurrentIndex();
-
     });
 
     connect(right, &QPushButton::pressed, cardEditLayout, [&decks, deckSelector, frontText, backText, status, cardTemp]()
@@ -164,8 +156,6 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
         frontText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
         backText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getBack()));
         status->setText(cardTemp + QString::fromStdString(std::to_string(decks[deckSelector->currentIndex()].getCurrentIndex() + 1)));
-        qDebug() << decks[deckSelector->currentIndex()].getCurrentIndex();
-
     });
 
     createWindow->show();
