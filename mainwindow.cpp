@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
             [this](){ CreateWindow c(decks); } );
 
     connect(studyButton, &QPushButton::pressed, this,
-            [this](){ StudyWindow s; } );
+            [this](){ StudyWindow s(decks); } );
 
 }
 
