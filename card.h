@@ -21,6 +21,9 @@ private:
     // Variable holding the value of the card: used for priority reasons
     double      value;
 
+    // Variable to hold whether we are looking at the front of the card
+    bool isFront;
+
 public:
     // Default constructor
     Card();
@@ -32,11 +35,13 @@ public:
     std::string  getFront() const;
     std::string  getBack()  const;
     double       getValue() const;
+    bool         getIsFront() const;
 
     // Setter functions
     void setFront(const std::string& front);
     void setBack(const std::string& back);
     void setValue(const double value);
+    void setIsFront(bool set);
 
     // // print front and back of card
     // void print() const;

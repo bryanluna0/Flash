@@ -9,14 +9,14 @@
 
 // Default constructor
 Card::Card()
-    : front(""), back(""), value(0.5)
+    : front(""), back(""), value(0.5), isFront(true)
 {
 
 }
 
 // Constructor with values
 Card::Card(const std::string& front, const std::string& back)
-    : front(front), back(back), value(0.5)
+    : front(front), back(back), value(0.5), isFront(true)
 {
 
 }
@@ -37,6 +37,11 @@ double Card::getValue() const
     return value;
 }
 
+bool Card::getIsFront() const
+{
+    return isFront;
+}
+
 // Setter functions
 void Card::setFront(const std::string& front)
 {
@@ -51,6 +56,11 @@ void Card::setBack(const std::string& back)
 void Card::setValue(const double value)
 {
     this->value = value;
+}
+
+void Card::setIsFront(bool set)
+{
+    this->isFront = set;
 }
 
 // // print front and back of card
