@@ -67,6 +67,13 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
         }
     }
 
+    connect(deckSelector, &QComboBox::currentIndexChanged, outerLayout, [&decks, deckSelector, cardText]()
+    {
+        decks[deckSelector->currentIndex()].goFirst();
+        Card firstCard = decks[deckSelector->currentIndex()].getCurrent();
+        cardText->setText(QString::fromStdString(firstCard.getFront()));
+    });
+
     connect(left, &QPushButton::pressed, cardBrowseLayout, [&decks, deckSelector, cardText]()
     {
         decks[deckSelector->currentIndex()].getCurrent().setIsFront(true);
