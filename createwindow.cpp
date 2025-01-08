@@ -158,5 +158,7 @@ CreateWindow::CreateWindow(std::vector<Deck>& decks)
         status->setText(cardTemp + QString::fromStdString(std::to_string(decks[deckSelector->currentIndex()].getCurrentIndex() + 1)));
     });
 
+    // TODO: make the sixe of the window fixed
+    // createWindow->setFixedSize(400, 750);
     createWindow->show();
 }
