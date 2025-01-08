@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QRect>
 
 StudyWindow::StudyWindow(std::vector<Deck>& decks)
 {
@@ -21,6 +22,10 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
 
     auto cardText = new QLabel;
     cardText->setAlignment(Qt::AlignCenter);
+    // QRect a(10, 10, 10, 10);
+    // cardText->setFrameRect(a);
+    cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
+    cardText->setFixedHeight(55);
     outerLayout->addWidget(cardText);
 
     auto cardBrowseLayout = new QHBoxLayout;
@@ -72,6 +77,7 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
         decks[deckSelector->currentIndex()].goFirst();
         Card firstCard = decks[deckSelector->currentIndex()].getCurrent();
         cardText->setText(QString::fromStdString(firstCard.getFront()));
+        cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
     });
 
     connect(left, &QPushButton::pressed, cardBrowseLayout, [&decks, deckSelector, cardText]()
@@ -79,6 +85,7 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
         decks[deckSelector->currentIndex()].getCurrent().setIsFront(true);
         decks[deckSelector->currentIndex()].goPrev();
         cardText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
+        cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
     });
 
     connect(flip, &QPushButton::pressed, cardBrowseLayout, [&decks, deckSelector, cardText]()
@@ -87,11 +94,13 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
         {
             decks[deckSelector->currentIndex()].getCurrent().setIsFront(false);
             cardText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getBack()));
+            cardText->setStyleSheet("QLabel {background-color : SandyBrown}");
         }
         else
         {
             decks[deckSelector->currentIndex()].getCurrent().setIsFront(true);
             cardText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
+            cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
         }
     });
 
@@ -100,6 +109,7 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
         decks[deckSelector->currentIndex()].getCurrent().setIsFront(true);
         decks[deckSelector->currentIndex()].goNext();
         cardText->setText(QString::fromStdString(decks[deckSelector->currentIndex()].getCurrent().getFront()));
+        cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
     });
 
     studyWindow->show();
