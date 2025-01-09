@@ -1,3 +1,9 @@
+/* The specification file for the class of the study window.
+ * This window will be used to study the cards of the
+ * various decks the user may have created.
+ *
+ */
+
 #include "studywindow.h"
 #include <QComboBox>
 #include <QVBoxLayout>
@@ -21,12 +27,6 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
     QComboBox* deckSelector = nullptr;
 
     auto cardText = new QLabel;
-    cardText->setAlignment(Qt::AlignCenter);
-    // QRect a(10, 10, 10, 10);
-    // cardText->setFrameRect(a);
-    cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
-    cardText->setFixedHeight(55);
-    outerLayout->addWidget(cardText);
 
     auto cardBrowseLayout = new QHBoxLayout;
     outerLayout->addLayout(cardBrowseLayout);
@@ -42,6 +42,10 @@ StudyWindow::StudyWindow(std::vector<Deck>& decks)
     }
     else
     {
+        cardText->setAlignment(Qt::AlignCenter);
+        cardText->setStyleSheet("QLabel {background-color : SkyBlue}");
+        cardText->setFixedHeight(55);
+        outerLayout->addWidget(cardText);
         deckNametag = new QLabel("Set: ");
         innerLayout->addWidget(deckNametag);
 

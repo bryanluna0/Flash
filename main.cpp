@@ -1,3 +1,7 @@
+/* This is the main window of the application.
+ *
+ */
+
 #include "mainwindow.h"
 #include <QApplication>
 

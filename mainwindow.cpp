@@ -1,3 +1,10 @@
+/* The specification file for the class of the main window.
+ * This is the main window that will direct the user to
+ * the different functionalities of the flashcard app
+ * such as the create and study windows.
+ *
+ */
+
 #include "./ui_mainwindow.h"
 #include "deck.h"
 #include "mainwindow.h"

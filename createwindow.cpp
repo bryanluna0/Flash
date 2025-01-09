@@ -1,3 +1,9 @@
+/* The specification file for the class of the create window.
+ * This is the window that will be used to create new cards and decks.
+ * This window is created using various QWidgets.
+ *
+ */
+
 #include "createwindow.h"
 #include <QBoxLayout>
 #include <QDebug>
